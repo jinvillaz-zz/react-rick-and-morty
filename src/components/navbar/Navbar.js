@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import {
+  AppBar,
+  CssBaseline,
+  Divider,
+  Drawer,
+  Hidden,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  MenuList,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
 import { useTheme } from '@material-ui/core/styles';
-import HomeIcon from '@material-ui/icons/Home';
+import { Home, Menu } from '@material-ui/icons';
 import { Switch, Route, NavLink, BrowserRouter as Router } from 'react-router-dom';
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem'
 
 import { useStyles } from './constants';
 import { HomeView } from '../../views/home';
@@ -25,7 +26,7 @@ export const Routes = [
   {
     text: 'Home',
     path: '/',
-    icon: HomeIcon,
+    icon: Home,
     component: HomeView,
   }
 ];
@@ -78,7 +79,7 @@ export const Navbar = (props) => {
             onClick={handleDrawerToggle}
             className={classes.menuButton}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <Typography variant="h6" noWrap>
             Rick and Morty app

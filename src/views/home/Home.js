@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { TextField, FormControl, InputLabel, InputAdornment, MenuItem, Select } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { DataGrid } from '@material-ui/data-grid';
 import { COLUMNS, useStyles, getCharacters } from './helper';
+import { Loader } from '../../components/loader';
 import Api from '../../services/rickandmorty-api';
 
 
@@ -12,13 +13,13 @@ const LIMIT = 20;
 export const HomeView = () => {
   const classes = useStyles();
   const history = useHistory();
+  const query = Object.fromEntries(new URLSearchParams(useLocation().search));
   const [characters, setCharacters] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(query.page ? parseInt(query.page, 10) : 0);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [gender, setGender] = useState('');
-  const [name, setName] = useState('');
-
+  const [gender, setGender] = useState(query.gender || '');
+  const [name, setName] = useState(query.name || '');
   const handleChangePage = (params) => {
     setPage(params.page);
   };
@@ -39,7 +40,23 @@ export const HomeView = () => {
 
   useEffect(() => {
     let active = true;
-
+    (() => {
+      const params = [];
+      if (page > 0) {
+        params.push(`page=${page}`);
+      }
+      if (gender.length > 0) {
+        params.push(`gender=${gender}`);
+      }
+      if (name.length > 0 ) {
+        params.push(`name=${name}`);
+      }
+      let search = `?${params.join('&')}`;
+      if (search.length === 1) {
+        search = null;
+      }
+      history.replace({ search });
+    })();
     (async () => {
       setLoading(true);
       const { characters, size } = await Api.getCharacters(page, gender, name);
@@ -54,7 +71,11 @@ export const HomeView = () => {
     return () => {
       active = false;
     };
-  }, [page, gender, name]);
+  }, [page, gender, name, history]);
+
+  if (total <= 0 ) {
+    return (<Loader/>);
+  }
 
   return (
     <div className={classes.root}>

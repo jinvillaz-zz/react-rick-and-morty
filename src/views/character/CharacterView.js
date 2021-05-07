@@ -101,7 +101,7 @@ export const CharacterView = () => {
   };
 
   const handleReturn = () => {
-    history.push('/');
+    history.goBack();
   };
 
   useEffect(() => {
