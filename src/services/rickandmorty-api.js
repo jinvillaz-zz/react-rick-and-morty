@@ -3,9 +3,9 @@ import restService from './http-common';
 const api = restService.get();
 
 class RickAndMortyApi {
-  async getCharacters(page=1, gender, name) {
+  async getCharacters(page, gender, name) {
     const params = {
-      page: page === 0 ? 1 : page,
+      page: page + 1,
     };
     if (gender !== '') {
       params.gender = gender;

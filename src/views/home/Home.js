@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SearchIcon from '@material-ui/icons/Search';
-import MenuItem from '@material-ui/core/MenuItem';
+import { TextField, FormControl, InputLabel, InputAdornment, MenuItem, Select } from '@material-ui/core';
+import { Search } from '@material-ui/icons';
 import { DataGrid } from '@material-ui/data-grid';
 import { COLUMNS, useStyles, getCharacters } from './helper';
 import Api from '../../services/rickandmorty-api';
+
 
 const LIMIT = 20;
 
@@ -22,7 +18,7 @@ export const HomeView = () => {
   const [name, setName] = useState('');
 
   const handleChangePage = (params) => {
-    setPage(params.page + 1);
+    setPage(params.page);
   };
 
   const handleChangeGender = (event) => {
@@ -77,7 +73,7 @@ export const HomeView = () => {
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon/>
+              <Search/>
             </InputAdornment>
           ),
         }}
@@ -87,13 +83,14 @@ export const HomeView = () => {
                 pageSize={LIMIT}
                 rowCount={total}
                 pagination
-                page={page}
                 paginationMode="server"
                 onPageChange={handleChangePage}
                 loading={loading}
-                disableColumnMenu
-                disableColumnFilter
-                disableColumnSort/>
+                onSelectionModelChange={(newSelection) => {
+                  console.info('newSelection ', newSelection.selectionModel);
+                }}
+                page={page}
+                disableColumnMenu/>
     </div>
   );
 };
