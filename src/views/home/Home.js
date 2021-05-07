@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { TextField, FormControl, InputLabel, InputAdornment, MenuItem, Select } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { DataGrid } from '@material-ui/data-grid';
@@ -10,6 +11,7 @@ const LIMIT = 20;
 
 export const HomeView = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [characters, setCharacters] = useState([]);
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
@@ -29,6 +31,10 @@ export const HomeView = () => {
   const handleChangeFilter = (event) => {
     setName(event.target.value);
     setPage(0);
+  };
+
+  const selectCharacter = (event) => {
+    history.push(`/character/${event.selectionModel[0]}`);
   };
 
   useEffect(() => {
@@ -86,9 +92,7 @@ export const HomeView = () => {
                 paginationMode="server"
                 onPageChange={handleChangePage}
                 loading={loading}
-                onSelectionModelChange={(newSelection) => {
-                  console.info('newSelection ', newSelection.selectionModel);
-                }}
+                onSelectionModelChange={selectCharacter}
                 page={page}
                 disableColumnMenu/>
     </div>

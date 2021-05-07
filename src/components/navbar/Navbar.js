@@ -13,14 +13,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
-// import BackupIcon from '@material-ui/icons/Backup';
-// import ViewListIcon from '@material-ui/icons/ViewList';
 import { Switch, Route, NavLink, BrowserRouter as Router } from 'react-router-dom';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem'
 
 import { useStyles } from './constants';
 import { HomeView } from '../../views/home';
+import { CharacterView } from '../../views/character'
 
 export const Routes = [
   {
@@ -122,6 +121,7 @@ export const Navbar = (props) => {
         <main id="main" className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
+            <Route path="/character/:id" children={<CharacterView/>} />
             <Route exact path="/" component={HomeView} />
           </Switch>
         </main>

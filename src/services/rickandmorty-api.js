@@ -16,6 +16,11 @@ class RickAndMortyApi {
     const { data } = await api.get('/character', { params });
     return { characters: data.results, size: data.info.count };
   }
+
+  async getCharacter(id) {
+    const { data } = await api.get(`/character/${id}`);
+    return data;
+  }
 }
 
 export default new RickAndMortyApi();

@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
+import { Tooltip } from "@material-ui/core";
 import Avatar from '@material-ui/core/Avatar';
 import {
   mdiGenderFemale,
@@ -38,15 +39,21 @@ const renderGender = (params) => {
   const value = params.value.toLowerCase();
   if (value === 'male') {
     return (
-      <Icon path={mdiGenderMale} size={1}/>
+      <Tooltip title="Male">
+          <Icon path={mdiGenderMale} size={1}/>
+      </Tooltip>
     );
   } else if (value === 'female') {
     return (
-      <Icon path={mdiGenderFemale} size={1}/>
+      <Tooltip title="Female">
+        <Icon path={mdiGenderFemale} size={1}/>
+      </Tooltip>
     );
   } else {
     return (
-      <Icon path={mdiHelp} size={1}/>
+      <Tooltip title="Unknown">
+        <Icon path={mdiHelp} size={1}/>
+      </Tooltip>
     );
   }
 };
@@ -55,15 +62,21 @@ const renderStatus = (params) => {
   const value = params.value.toLowerCase();
   if (value === 'alive') {
     return (
-      <Icon path={mdiHeartOutline} size={1}/>
+      <Tooltip title="Alive">
+        <Icon path={mdiHeartOutline} size={1}/>
+      </Tooltip>
     );
   } else if (value === 'dead') {
     return (
-      <Icon path={mdiSkullCrossbonesOutline} size={1}/>
+      <Tooltip title="Dead">
+        <Icon path={mdiSkullCrossbonesOutline} size={1}/>
+      </Tooltip>
     );
   } else {
     return (
-      <Icon path={mdiHelp} size={1}/>
+      <Tooltip title="Unknown">
+        <Icon path={mdiHelp} size={1}/>
+      </Tooltip>
     );
   }
 };
