@@ -13,7 +13,7 @@ class RickAndMortyApi {
     if (name !== '') {
       params.name = name;
     }
-    const { data } = await api.get('/character', { params });
+    const { data } = await api.get('/character/', { params });
     return { characters: data.results, size: data.info.count };
   }
 
